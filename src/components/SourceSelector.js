@@ -2,13 +2,23 @@ import React from 'react';
 
 export default function SourceSelector({ sources, value, onChange }) {
   return (
-    <div>
-      <label>Source: </label>
-      <select value={value} onChange={e => onChange(e.target.value)}>
-        {sources.map(s => (
-          <option key={s.value} value={s.value}>{s.label}</option>
-        ))}
-      </select>
+    <div className="source-selector">
+      {sources.map(source => (
+        <div 
+          key={source.value} 
+          className={`source-option ${value === source.value ? 'active' : ''}`}
+          onClick={() => onChange(source.value)}
+        >
+          <div style={{ fontWeight: '600', marginBottom: '0.25rem' }}>
+            {source.label}
+          </div>
+          {source.description && (
+            <div style={{ fontSize: '0.85rem', opacity: 0.8 }}>
+              {source.description}
+            </div>
+          )}
+        </div>
+      ))}
     </div>
   );
 }
